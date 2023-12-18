@@ -1,5 +1,8 @@
 # Laravel Nova 4 Email autocomplete field
 
+![img.png](readme/input.png)
+![img.png](readme/input-autocomplete.png)
+
 ## Installation 
 ```shell
 composer require wamesk/nova-email-autocomplete-field
@@ -10,7 +13,6 @@ composer require wamesk/nova-email-autocomplete-field
 ```shell
 php artisan vendor:publish --provider="Wame\NovaEmailAutocompleteField\FieldServiceProvider" --tag="config"
 ```
-
 ## Usage
 
 Default usage is pretty simple like every other field
