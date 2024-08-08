@@ -18,7 +18,11 @@ class FieldServiceProvider extends ServiceProvider
         Nova::serving(function (ServingNova $event): void {
             Nova::script('nova-email-autocomplete-field', __DIR__ . '/../dist/js/field.js');
             Nova::style('nova-email-autocomplete-field', __DIR__ . '/../dist/css/field.css');
+            Nova::translations(resource_path('/lang/vendor/nova-email-autocomplete-field/' . app()->getLocale() . '.json'));
         });
+
+        $this->loadTranslationsFrom(resource_path('/lang/vendor/nova-email-autocomplete-field'), 'translations');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([

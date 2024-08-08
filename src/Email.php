@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Wame\NovaEmailAutocompleteField;
 
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -20,6 +21,7 @@ class Email extends Text
     public function __construct($name, $attribute = null, callable $resolveCallback = null)
     {
         $this->withMeta(['domains' => config('nova-email-autocomplete.domains', [])]);
+
         parent::__construct($name, $attribute, $resolveCallback);
     }
 
@@ -43,5 +45,40 @@ class Email extends Text
         }
 
         $model->{$attribute} = $value;
+    }
+
+    public function creationRules($rules)
+    {
+        $parent = parent::creationRules($rules);
+
+        $this->uniqueRules($rules);
+
+        return $parent;
+    }
+
+    public function updateRules($rules)
+    {
+        $parent = parent::updateRules($rules);
+
+        $this->uniqueRules($rules);
+
+        return $parent;
+    }
+
+    private function uniqueRules($rules)
+    {
+        if (Str::startsWith($rules, 'unique:')) {
+            $rules = Str::replaceFirst('unique:', '', $rules);
+            list ($table, $column) = explode(',', $rules);
+
+            $this->withMeta(['unique' => ['table' => $table, 'column' => $column]]);
+        }
+    }
+
+    public function uniqueResource($resource)
+    {
+        $this->withMeta(['unique_resource' => $resource]);
+
+        return $this;
     }
 }

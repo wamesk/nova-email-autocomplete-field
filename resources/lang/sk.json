@@ -1,0 +1,9 @@
+{
+    "nova-email-autocomplete-field.loading": "Overujem duplicitu emailu...",
+    "nova-email-autocomplete-field.valid": "Email je v systéme jedinečný.",
+    "nova-email-autocomplete-field.invalid": "Užívateľ s takýmto emailom už existuje.",
+    "nova-email-autocomplete-field.email.invalid": "Zadajte email v správnom tvare.",
+    "nova-email-autocomplete-field.table_and_column_is_required": "Názov tabuľky a stĺpec je v API povinný.",
+    "nova-email-autocomplete-field.error": "Počas kontroly nastala chyba. Skúste to znovu neskôr.",
+    "nova-email-autocomplete-field.view": "Zobraziť"
+}

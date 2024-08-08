@@ -1,0 +1,9 @@
+{
+    "nova-email-autocomplete-field.loading": "I am verifying duplicate email...",
+    "nova-email-autocomplete-field.valid": "Email is unique in the system.",
+    "nova-email-autocomplete-field.invalid": "A user with this email already exists.",
+    "nova-email-autocomplete-field.email.invalid": "Enter email in the correct form.",
+    "nova-email-autocomplete-field.table_and_column_is_required": "The name of the table and column is required in the API.",
+    "nova-email-autocomplete-field.error": "An error occurred during verification. Please try again later.",
+    "nova-email-autocomplete-field.view": "Show"
+}
