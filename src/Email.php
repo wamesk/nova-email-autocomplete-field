@@ -6,11 +6,15 @@ namespace Wame\NovaEmailAutocompleteField;
 
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Laravel\Nova\Fields\DependentFields;
+use Laravel\Nova\Fields\SupportsDependentFields;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Email extends Text
 {
+    use SupportsDependentFields;
+
     /**
      * The field's component.
      *
