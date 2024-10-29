@@ -1,6 +1,6 @@
 <template>
     <DefaultField
-        :field="field"
+        :field="currentField"
         :errors="errors"
         :show-help-text="showHelpText"
         :full-width-content="fullWidthContent"
@@ -8,11 +8,11 @@
         <template #field>
             <div class="input-wrapper position-relative">
                 <input
-                    :id="field.attribute"
+                    :id="currentField.attribute"
                     type="text"
-                    class="w-full form-control form-input form-input-bordered"
+                    class="w-full form-control form-input form-control-bordered"
                     :class="errorClasses"
-                    :placeholder="field.name"
+                    :placeholder="currentField.name"
                     v-model="value"
                     autocomplete="email.unique"
                     @keyup="keyUp"
@@ -51,7 +51,7 @@
                     <div v-else-if="unique.status === 'invalid'" class="text-red-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16" class="inline-block component-heroicons-outline-x-circle component-icon component-icon-boolean" role="presentation"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         {{ __(unique.message) }}
-                        <a v-if="unique.url && field.unique_resource !== false" :href="unique.url" class="link-default component-inertia-link">{{ __('nova-email-autocomplete-field.view') }}</a>
+                        <a v-if="unique.url && currentField.unique_resource !== false" :href="unique.url" class="link-default component-inertia-link">{{ __('nova-email-autocomplete-field.view') }}</a>
                     </div>
                     <div v-else-if="unique.status === 'error'" class="text-red-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16" class="inline-block component-heroicons-outline-x-circle component-icon component-icon-boolean" role="presentation"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -64,10 +64,11 @@
 </template>
 
 <script>
-import {FormField, HandlesValidationErrors} from 'laravel-nova'
+import {DependentFormField, HandlesValidationErrors} from 'laravel-nova'
+import axios from 'axios'
 
 export default {
-    mixins: [FormField, HandlesValidationErrors],
+    mixins: [DependentFormField, HandlesValidationErrors],
 
     props: ['resourceName', 'resourceId', 'field'],
 
@@ -85,19 +86,20 @@ export default {
     },
 
     mounted() {
-        this.domains = this.field.domains
+        this.domains = this.currentField.domains
 
-        if (this.field.unique) {
+        if (this.currentField.unique) {
             this.unique.enabled = true
         }
     },
 
     methods: {
         setInitialValue() {
-            this.value = this.field.value || ''
+            this.value = this.currentField.value || ''
         },
 
         fill(formData) {
+            console.log('formData', formData)
             formData.append(this.fieldAttribute, this.value || '')
         },
 
@@ -246,8 +248,8 @@ export default {
 
             this.unique.status = 'loading'
 
-            const data = this.field.unique
-            data.unique_resource = this.field.unique_resource ?? null
+            const data = this.currentField.unique
+            data.unique_resource = this.currentField.unique_resource ?? null
             data.email = this.value
 
             const url = window.location.pathname

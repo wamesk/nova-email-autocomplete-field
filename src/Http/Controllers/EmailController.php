@@ -48,7 +48,7 @@ class EmailController
                 'enabled' => true,
                 'message' => __('nova-email-autocomplete-field.invalid'),
                 'status' => 'invalid',
-                'url' => config('nova.path') . 'resources/' . $resource . '/' . $check->id,
+                'url' => preg_replace('/\/{2,}/', '/', config('nova.path') . '/resources/' . $resource . '/' . $check->id),
             ]);
         }
 

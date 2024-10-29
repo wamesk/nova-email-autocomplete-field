@@ -25,9 +25,8 @@ class FieldServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
 
         if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/../config/nova-email-autocomplete.php' => config_path('nova-email-autocomplete.php'),
-            ], 'config');
+            $this->publishes([__DIR__ . '/../config/nova-email-autocomplete.php' => config_path('nova-email-autocomplete.php')], 'config');
+            $this->publishes([__DIR__ . '/../resources/lang' => resource_path('/lang/vendor/nova-email-autocomplete-field')], 'translation');
         }
     }
 
