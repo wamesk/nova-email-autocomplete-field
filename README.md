@@ -3,6 +3,10 @@
 ![img.png](readme/input.png)
 ![img.png](readme/input-autocomplete.png)
 
+## Requirements
+
+- `"laravel/nova": "^4.0|^5.0"`
+
 ## Installation 
 ```shell
 composer require wamesk/nova-email-autocomplete-field
@@ -12,6 +16,7 @@ composer require wamesk/nova-email-autocomplete-field
 
 ```shell
 php artisan vendor:publish --provider="Wame\NovaEmailAutocompleteField\FieldServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Wame\NovaEmailAutocompleteField\FieldServiceProvider" --tag="translation"
 ```
 
 ## Usage

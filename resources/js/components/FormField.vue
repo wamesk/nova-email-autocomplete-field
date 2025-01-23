@@ -24,10 +24,6 @@
                     class="position-absolute w-full bg-white dark:bg-gray-900"
                     v-if="suggestions.length && focused"
                 >
-                    <!--                <li>-->
-                    <!--                    Showing {{ suggestedDomains.length }} of {{ domains.length }} results-->
-                    <!--                </li>-->
-                    <!--                bg-primary-500-->
                     <li
                         class="w-full px-3 py-1.5 cursor-pointer text-gray-500 dark:text-gray-400 border-gray-100 dark:border-gray-700"
                         v-for="(suggestion, index) in suggestions"
@@ -195,17 +191,6 @@ export default {
             for (let i = 0; i < this.domains.length; i++) {
                 const domain = this.domains[i]
 
-                // if (i === 0) {
-                //     if (this.selected !== {}) {
-                //         for (let x = 0; i < this.)
-                //     } else {
-                //         this.selected = {
-                //             index: i,
-                //             domain: domain,
-                //         }
-                //     }
-                // }
-
                 if (suggestions.length === 10) {
                     break
                 }
@@ -270,6 +255,10 @@ export default {
 }
 </script>
 <style>
+.input-wrapper {
+    position: relative;
+}
+
 .input-wrapper ul {
     position: absolute;
     z-index: 1000;
