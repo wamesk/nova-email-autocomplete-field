@@ -69,11 +69,19 @@ class Email extends Text
         return $parent;
     }
 
-    private function uniqueRules($rules)
+    private function uniqueRules($rules): void
     {
-        if (Str::startsWith($rules, 'unique:')) {
+        if (is_array($rules)) {
+            foreach ($rules as $rule) {
+                $this->uniqueRules($rule);
+            }
+
+            return;
+        }
+
+        if (is_string($rules) && Str::startsWith($rules, 'unique:')) {
             $rules = Str::replaceFirst('unique:', '', $rules);
-            list ($table, $column) = explode(',', $rules);
+            [$table, $column] = explode(',', $rules);
 
             $this->withMeta(['unique' => ['table' => $table, 'column' => $column]]);
         }
